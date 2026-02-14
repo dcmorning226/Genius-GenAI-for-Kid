@@ -25,8 +25,8 @@
 ### Step 1: 下載專案
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/companion.git
-cd companion
+git clone https://github.com/dcmorning226/claudecode.git
+cd claudecode
 ```
 
 或者解壓縮 release 檔案：
