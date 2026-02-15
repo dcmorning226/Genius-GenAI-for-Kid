@@ -25,8 +25,8 @@
 ### Step 1: 下載專案
 
 ```bash
-git clone https://github.com/dcmorning226/claudecode.git
-cd claudecode
+git clone https://github.com/dcmorning226/Genius-GenAI-for-Kid.git
+cd Genius-GenAI-for-Kid
 ```
 
 或者解壓縮 release 檔案：

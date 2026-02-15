@@ -83,8 +83,8 @@ Companion 是一個為 4–6 歲兒童設計的 AI 角色陪伴式語音互動�
 ### 1. 複製專案
 
 ```bash
-git clone https://github.com/dcmorning226/claudecode.git
-cd claudecode
+git clone https://github.com/dcmorning226/Genius-GenAI-for-Kid.git
+cd Genius-GenAI-for-Kid
 ```
 
 ### 2. 啟動資料庫
