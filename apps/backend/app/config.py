@@ -14,13 +14,20 @@ class Settings(BaseSettings):
     # Encryption key for provider API keys
     encryption_key: str = ""
 
-    # Default provider keys (optional)
+    # OpenAI (LLM + STT + TTS)
     openai_api_key: str = ""
-    anthropic_api_key: str = ""
+    openai_llm_model: str = "gpt-4o-mini"
+    openai_tts_model: str = "tts-1"
+    openai_stt_model: str = "whisper-1"
 
-    # WaveSpeed AI
+    # Anthropic (LLM)
+    anthropic_api_key: str = ""
+    anthropic_llm_model: str = "claude-haiku-4-5-20251001"
+
+    # WaveSpeed AI (image generation)
     wavespeed_api_key: str = ""
     wavespeed_base_url: str = "https://api.wavespeed.ai"
+    wavespeed_model: str = "wavespeed-ai/z-image/turbo-lora"
 
     model_config = {"env_file": ".env", "env_file_encoding": "utf-8"}
 

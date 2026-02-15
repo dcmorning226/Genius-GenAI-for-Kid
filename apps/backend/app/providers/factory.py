@@ -44,8 +44,8 @@ async def _get_model_name(db: AsyncSession, user_id, provider_type: str, provide
 async def get_llm_provider(db: AsyncSession, user_id) -> LLMProvider:
     # Try user's Anthropic config first, then OpenAI, then fall back to env keys
     for name, cls, default_key, default_model in [
-        ("anthropic", AnthropicLLMProvider, settings.anthropic_api_key, "claude-haiku-4-5-20251001"),
-        ("openai", OpenAILLMProvider, settings.openai_api_key, "gpt-4o-mini"),
+        ("anthropic", AnthropicLLMProvider, settings.anthropic_api_key, settings.anthropic_llm_model),
+        ("openai", OpenAILLMProvider, settings.openai_api_key, settings.openai_llm_model),
     ]:
         api_key = await _get_api_key(db, user_id, "llm", name) or default_key
         if api_key:
@@ -58,14 +58,15 @@ async def get_llm_provider(db: AsyncSession, user_id) -> LLMProvider:
 async def get_stt_provider(db: AsyncSession, user_id) -> STTProvider:
     api_key = await _get_api_key(db, user_id, "stt", "openai_whisper") or settings.openai_api_key
     if api_key:
-        return OpenAIWhisperSTT(api_key=api_key)
+        model = await _get_model_name(db, user_id, "stt", "openai_whisper") or settings.openai_stt_model
+        return OpenAIWhisperSTT(api_key=api_key, model=model)
     raise RuntimeError("No STT provider configured.")
 
 
 async def get_tts_provider(db: AsyncSession, user_id) -> TTSProvider:
     api_key = await _get_api_key(db, user_id, "tts", "openai_tts") or settings.openai_api_key
     if api_key:
-        model = await _get_model_name(db, user_id, "tts", "openai_tts") or "tts-1"
+        model = await _get_model_name(db, user_id, "tts", "openai_tts") or settings.openai_tts_model
         return OpenAITTS(api_key=api_key, model=model)
     raise RuntimeError("No TTS provider configured.")
 
@@ -73,5 +74,6 @@ async def get_tts_provider(db: AsyncSession, user_id) -> TTSProvider:
 async def get_image_provider(db: AsyncSession, user_id) -> ImageProvider:
     api_key = await _get_api_key(db, user_id, "image", "wavespeed") or settings.wavespeed_api_key
     if api_key:
-        return WaveSpeedImageProvider(api_key=api_key, base_url=settings.wavespeed_base_url)
+        model = await _get_model_name(db, user_id, "image", "wavespeed") or settings.wavespeed_model
+        return WaveSpeedImageProvider(api_key=api_key, base_url=settings.wavespeed_base_url, model=model)
     raise RuntimeError("No image provider configured.")
