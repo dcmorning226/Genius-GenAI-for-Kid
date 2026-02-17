@@ -112,45 +112,24 @@ npm run dev
 
 ---
 
-### Step 4：啟動 Kid UI（兒童 App）
+### Step 4：啟動 Kid UI（兒童互動網頁）
 
 **再開一個終端機**，執行：
 
-**Mac / Linux：**
 ```bash
 cd apps/kid-ui
 npm install
-cp .env.example .env
 npm start
 ```
 
-**Windows：**
-```cmd
-cd apps\kid-ui
-npm install
-copy .env.example .env
-npm start
-```
+啟動後，終端機會顯示網址。用瀏覽器打開 Kid UI 頁面（預設 http://localhost:8081）。
 
-#### 設定手機連線 IP
+#### 使用方式
 
-編輯 `apps/kid-ui/.env`，把 `EXPO_PUBLIC_API_HOST` 改成你電腦的 IP：
-
-```
-EXPO_PUBLIC_API_HOST=192.168.x.x
-```
-
-查 IP 的方法：
-- **Windows：** 開命令提示字元，輸入 `ipconfig`，找 `IPv4 位址`
-- **Mac：** 終端機輸入 `ifconfig | grep "inet " | grep -v 127`
-
-#### 手機操作
-
-1. 手機下載 **Expo Go** App（App Store / Google Play）
-2. 手機和電腦連同一個 WiFi
-3. 用 Expo Go 掃描終端機上的 QR Code
-4. 輸入 Step 3 得到的 **6 位數登入碼**
-5. 開始跟角色說話！
+1. 在瀏覽器打開 Kid UI 網頁
+2. 輸入 Step 3 得到的 **6 位數登入碼**
+3. 允許瀏覽器使用麥克風
+4. 開始跟角色說話！
 
 ---
 
@@ -162,8 +141,8 @@ EXPO_PUBLIC_API_HOST=192.168.x.x
 | `docker-compose` 找不到指令 | 用 `docker compose`（中間是空格，不是連字號） |
 | `pip install` 時編譯失敗 | 已改用 psycopg，重新 `git pull` 再裝即可 |
 | 瀏覽器打 `0.0.0.0:8000` 打不開 | 改用 `localhost:8000` |
-| 手機 App 連不到 Backend | 1. 確認 .env 的 IP 正確 2. 同一個 WiFi 3. 防火牆開 8000 port |
-| 手機沒有麥克風權限 | iOS：設定→隱私→麥克風→Expo Go。Android：設定→應用→Expo Go→權限 |
+| Kid UI 網頁連不到 Backend | 確認 Backend 已啟動，瀏覽器用 `localhost:8000` 測試 |
+| 瀏覽器沒有麥克風權限 | 點網址列左邊的鎖頭圖示 → 允許麥克風權限 |
 
 ---
 
@@ -173,7 +152,7 @@ EXPO_PUBLIC_API_HOST=192.168.x.x
 Genius-GenAI-for-Kid/
 ├── apps/
 │   ├── backend/        ← Python FastAPI（AI 語音管線 + API）
-│   ├── kid-ui/         ← React Native Expo（兒童 App）
+│   ├── kid-ui/         ← 兒童互動網頁介面
 │   └── parent-ui/      ← Next.js（家長管理網頁）
 ├── docker-compose.yml  ← 一鍵啟動 PostgreSQL + Redis
 ├── .env.example        ← 環境變數範本

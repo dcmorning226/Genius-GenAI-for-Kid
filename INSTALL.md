@@ -8,7 +8,7 @@
 | Node.js | 18+ | Parent UI + Kid UI |
 | Docker Desktop | 最新版 | PostgreSQL + Redis |
 | Git | 最新版 | 版本控制 |
-| Expo Go App | 最新版 | 手機上執行 Kid UI |
+| 現代瀏覽器 | Chrome / Edge / Safari | 操作 Kid UI 及 Parent UI |
 
 ### AI API 金鑰（至少需要一組）
 
@@ -169,7 +169,7 @@ npm run dev
 
 ---
 
-### Step 5: 設定並啟動 Kid UI
+### Step 5: 設定並啟動 Kid UI（兒童互動網頁）
 
 ```bash
 cd apps/kid-ui
@@ -177,42 +177,18 @@ cd apps/kid-ui
 # 安裝依賴
 npm install
 
-# 建立環境設定檔
-# macOS / Linux:
-cp .env.example .env
-# Windows:
-copy .env.example .env
-```
-
-#### 設定 Backend IP
-
-編輯 `apps/kid-ui/.env`，將 `EXPO_PUBLIC_API_HOST` 改為你電腦的區域網路 IP：
-
-```env
-# 改成你的區域網路 IP（手機需透過此 IP 連線到電腦）
-EXPO_PUBLIC_API_HOST=192.168.x.x
-EXPO_PUBLIC_API_PORT=8000
-```
-
-查看你的 IP：
-```bash
-# macOS / Linux:
-ifconfig | grep "inet " | grep -v 127.0.0.1
-# Windows:
-ipconfig | findstr "IPv4"
-```
-
-#### 啟動 Kid UI
-
-```bash
+# 啟動開發伺服器
 npm start
 ```
 
-1. 手機安裝 **Expo Go** App（iOS App Store / Google Play）
-2. 手機與電腦連同一個 WiFi 網路
-3. 掃描終端機顯示的 QR Code
-4. 輸入家長給的 **6 位數登入碼**
-5. 開始與角色對話！
+啟動後，用瀏覽器打開 Kid UI 頁面（預設 http://localhost:8081）。
+
+#### 使用方式
+
+1. 在瀏覽器打開 Kid UI 網頁
+2. 輸入家長給的 **6 位數登入碼**
+3. 允許瀏覽器使用麥克風權限
+4. 開始與角色對話！
 
 ---
 
@@ -252,17 +228,17 @@ docker compose up -d
 alembic upgrade head
 ```
 
-### Kid UI 無法連線 Backend
+### Kid UI 網頁無法連線 Backend
 
-1. 確認手機和電腦在同一個 WiFi 網路
-2. 確認 `apps/kid-ui/.env` 中的 `EXPO_PUBLIC_API_HOST` 為正確的區域網路 IP
-3. 確認 Backend 用 `--host 0.0.0.0` 啟動（接受外部連線）
-4. 確認防火牆沒有擋住 port 8000
+1. 確認 Backend 已啟動（瀏覽器開 http://localhost:8000/health 測試）
+2. 確認 Backend 用 `--host 0.0.0.0` 啟動（接受外部連線）
+3. 若透過區域網路存取，確認防火牆沒有擋住 port 8000
 
-### 麥克風權限
+### 瀏覽器麥克風權限
 
-- iOS: 設定 → 隱私權 → 麥克風 → Expo Go → 開啟
-- Android: 設定 → 應用程式 → Expo Go → 權限 → 麥克風 → 允許
+- 點網址列左邊的鎖頭（或資訊）圖示 → 允許麥克風權限
+- Chrome: 設定 → 隱私權與安全性 → 網站設定 → 麥克風
+- 注意：麥克風功能需透過 HTTPS 或 localhost 才能使用
 
 ### API 金鑰相關
 
@@ -281,6 +257,6 @@ alembic upgrade head
 | Database | 使用雲端 PostgreSQL（如 Supabase、RDS） |
 | Redis | 使用雲端 Redis（如 Upstash、ElastiCache） |
 | Parent UI | 部署至 Vercel |
-| Kid UI | 使用 EAS Build 打包原生 App |
+| Kid UI | 部署為靜態網頁或 Node.js 伺服器 |
 | HTTPS | 必須使用 HTTPS（尤其 WebSocket 需要 wss://） |
 | .env | 使用環境變數管理服務（不要 commit .env） |
