@@ -1,7 +1,12 @@
 import asyncio
 import sys
+import platform
 from pathlib import Path
 from logging.config import fileConfig
+
+# Windows requires SelectorEventLoop for psycopg async mode
+if platform.system() == "Windows":
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 # Ensure the backend directory is in Python path so 'app' module can be found
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
