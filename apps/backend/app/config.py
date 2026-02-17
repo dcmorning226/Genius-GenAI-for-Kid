@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     # Database
-    database_url: str = "postgresql+asyncpg://companion:companion_dev@localhost:5432/companion"
+    database_url: str = "postgresql+psycopg://companion:companion_dev@localhost:5432/companion"
     redis_url: str = "redis://localhost:6379/0"
 
     # Auth

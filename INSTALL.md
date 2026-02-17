@@ -4,7 +4,7 @@
 
 | 軟體 | 版本 | 用途 |
 |------|------|------|
-| Python | 3.11 ~ 3.12（建議 3.12） | Backend 伺服器（3.13+ 尚未完整支援 asyncpg） |
+| Python | 3.11+ | Backend 伺服器 |
 | Node.js | 18+ | Parent UI + Kid UI |
 | Docker Desktop | 最新版 | PostgreSQL + Redis |
 | Git | 最新版 | 版本控制 |
@@ -87,7 +87,7 @@ cp ../../.env.example .env
 
 ```env
 # 資料庫（使用預設值即可）
-DATABASE_URL=postgresql+asyncpg://companion:companion_dev@localhost:5432/companion
+DATABASE_URL=postgresql+psycopg://companion:companion_dev@localhost:5432/companion
 REDIS_URL=redis://localhost:6379/0
 
 # JWT 密鑰（請更換為隨機字串）
