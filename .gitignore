@@ -4,9 +4,10 @@ venv/
 __pycache__/
 *.pyc
 
-# Environment
+# Environment (keep .env.example files)
 .env
 .env.local
+!.env.example
 
 # Build outputs
 .next/

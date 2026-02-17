@@ -90,7 +90,7 @@ cd Genius-GenAI-for-Kid
 ### 2. 啟動資料庫
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 這會啟動：
@@ -146,12 +146,17 @@ npm run dev
 cd apps/kid-ui
 
 npm install
+
+# 建立環境設定檔並設定你的區域網路 IP
+cp .env.example .env
+# 編輯 .env，將 EXPO_PUBLIC_API_HOST 設為你的電腦 IP
+
 npm start
 ```
 
 - 使用 Expo Go App 掃描 QR Code
 - 輸入家長在 Dashboard 取得的 6 位數登入碼
-- **重要**: 修改 `constants/api.ts` 中的 IP 地址為你的電腦區域網路 IP
+- **重要**: 編輯 `apps/kid-ui/.env` 中的 `EXPO_PUBLIC_API_HOST` 為你的電腦區域網路 IP
 
 ---
 

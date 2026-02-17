@@ -6,7 +6,7 @@
 |------|------|------|
 | Python | 3.11+ | Backend 伺服器 |
 | Node.js | 18+ | Parent UI + Kid UI |
-| Docker + Docker Compose | 最新版 | PostgreSQL + Redis |
+| Docker Desktop | 最新版 | PostgreSQL + Redis |
 | Git | 最新版 | 版本控制 |
 | Expo Go App | 最新版 | 手機上執行 Kid UI |
 
@@ -40,15 +40,23 @@ cd companion
 
 ### Step 2: 啟動資料庫服務
 
+**重要：請先確認 Docker Desktop 已安裝並正在執行。**
+
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 驗證服務是否啟動：
 ```bash
-docker-compose ps
+docker compose ps
 # 應該看到 postgres 和 redis 都是 Up 狀態
 ```
+
+> **Windows 使用者注意事項：**
+> - 必須先啟動 **Docker Desktop** 應用程式
+> - 如果出現 `open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified` 錯誤，表示 Docker Desktop 尚未啟動
+> - 開啟 Docker Desktop → 等待左下角顯示 "Engine running" → 再執行 `docker compose up -d`
+> - 新版 Docker 請使用 `docker compose`（無連字號），不要使用 `docker-compose`
 
 ---
 
@@ -92,6 +100,13 @@ ENCRYPTION_KEY=your-generated-fernet-key-here
 # AI API 金鑰（至少填一個）
 OPENAI_API_KEY=sk-your-openai-key
 # ANTHROPIC_API_KEY=sk-ant-your-key
+
+# 可選：指定模型（預設值如下）
+# OPENAI_LLM_MODEL=gpt-4o-mini
+# OPENAI_TTS_MODEL=tts-1
+# OPENAI_STT_MODEL=whisper-1
+# ANTHROPIC_LLM_MODEL=claude-haiku-4-5-20251001
+# WAVESPEED_MODEL=wavespeed-ai/z-image/turbo-lora
 ```
 
 #### 產生加密密鑰
@@ -128,8 +143,9 @@ cd apps/parent-ui
 npm install
 
 # 設定 Backend URL（可選，預設為 http://localhost:8000）
-# 如需修改，建立 .env.local：
-# echo "NEXT_PUBLIC_API_URL=http://localhost:8000" > .env.local
+# 如需修改，複製範例檔：
+cp .env.example .env.local
+# 然後編輯 .env.local 中的 NEXT_PUBLIC_API_URL
 
 # 啟動開發伺服器
 npm run dev
@@ -154,20 +170,19 @@ cd apps/kid-ui
 
 # 安裝依賴
 npm install
+
+# 建立環境設定檔
+cp .env.example .env
 ```
 
 #### 設定 Backend IP
 
-編輯 `constants/api.ts`，將 IP 改為你電腦的區域網路 IP：
+編輯 `apps/kid-ui/.env`，將 `EXPO_PUBLIC_API_HOST` 改為你電腦的區域網路 IP：
 
-```typescript
-export const API_BASE_URL = __DEV__
-  ? "http://192.168.x.x:8000"  // ← 改成你的 IP
-  : "https://api.companion.app";
-
-export const WS_BASE_URL = __DEV__
-  ? "ws://192.168.x.x:8000"    // ← 改成你的 IP
-  : "wss://api.companion.app";
+```env
+# 改成你的區域網路 IP（手機需透過此 IP 連線到電腦）
+EXPO_PUBLIC_API_HOST=192.168.x.x
+EXPO_PUBLIC_API_PORT=8000
 ```
 
 查看你的 IP：
@@ -194,12 +209,28 @@ npm start
 
 ## 常見問題 Troubleshooting
 
+### Docker Desktop 問題
+
+**錯誤：`open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified`**
+
+這表示 Docker Desktop 未執行：
+1. 開啟 Docker Desktop 應用程式
+2. 等待引擎啟動完成（左下角顯示綠色 "Engine running"）
+3. 重新執行 `docker compose up -d`
+
+**錯誤：`docker-compose: command not found`**
+
+新版 Docker 已整合 compose 插件，請使用：
+```bash
+docker compose up -d    # 注意：沒有連字號
+```
+
 ### 資料庫連線失敗
 
-```
-確認 Docker 服務正在執行：
-docker-compose ps
-docker-compose up -d
+```bash
+# 確認 Docker 服務正在執行：
+docker compose ps
+docker compose up -d
 ```
 
 ### Alembic 遷移失敗
@@ -215,7 +246,7 @@ alembic upgrade head
 ### Kid UI 無法連線 Backend
 
 1. 確認手機和電腦在同一個 WiFi 網路
-2. 確認 `constants/api.ts` 中的 IP 正確
+2. 確認 `apps/kid-ui/.env` 中的 `EXPO_PUBLIC_API_HOST` 為正確的區域網路 IP
 3. 確認 Backend 用 `--host 0.0.0.0` 啟動（接受外部連線）
 4. 確認防火牆沒有擋住 port 8000
 
