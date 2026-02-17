@@ -78,7 +78,10 @@ venv\Scripts\activate
 pip install -r requirements.txt
 
 # 4. 建立環境設定檔
+# macOS / Linux:
 cp ../../.env.example .env
+# Windows:
+copy ..\..\..env.example .env
 ```
 
 #### 編輯 `.env` 檔案
@@ -144,7 +147,10 @@ npm install
 
 # 設定 Backend URL（可選，預設為 http://localhost:8000）
 # 如需修改，複製範例檔：
+# macOS / Linux:
 cp .env.example .env.local
+# Windows:
+copy .env.example .env.local
 # 然後編輯 .env.local 中的 NEXT_PUBLIC_API_URL
 
 # 啟動開發伺服器
@@ -172,7 +178,10 @@ cd apps/kid-ui
 npm install
 
 # 建立環境設定檔
+# macOS / Linux:
 cp .env.example .env
+# Windows:
+copy .env.example .env
 ```
 
 #### 設定 Backend IP

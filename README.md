@@ -110,7 +110,10 @@ source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
 # 建立 .env 檔（從範例複製）
+# macOS / Linux:
 cp ../../.env.example .env
+# Windows:
+copy ..\..\..env.example .env
 
 # 編輯 .env，設定必要項目：
 # - JWT_SECRET（隨機字串）
@@ -148,7 +151,8 @@ cd apps/kid-ui
 npm install
 
 # 建立環境設定檔並設定你的區域網路 IP
-cp .env.example .env
+# macOS / Linux: cp .env.example .env
+# Windows: copy .env.example .env
 # 編輯 .env，將 EXPO_PUBLIC_API_HOST 設為你的電腦 IP
 
 npm start
