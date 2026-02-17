@@ -81,7 +81,7 @@ pip install -r requirements.txt
 # macOS / Linux:
 cp ../../.env.example .env
 # Windows:
-copy ..\..\..env.example .env
+copy ..\..\.env.example .env
 ```
 
 #### 編輯 `.env` 檔案

@@ -113,7 +113,7 @@ pip install -r requirements.txt
 # macOS / Linux:
 cp ../../.env.example .env
 # Windows:
-copy ..\..\..env.example .env
+copy ..\..\.env.example .env
 
 # 編輯 .env，設定必要項目：
 # - JWT_SECRET（隨機字串）
