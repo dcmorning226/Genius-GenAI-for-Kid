@@ -4,7 +4,7 @@
 
 | 軟體 | 版本 | 用途 |
 |------|------|------|
-| Python | 3.11+ | Backend 伺服器 |
+| Python | 3.11 ~ 3.12（建議 3.12） | Backend 伺服器（3.13+ 尚未完整支援 asyncpg） |
 | Node.js | 18+ | Parent UI + Kid UI |
 | Docker Desktop | 最新版 | PostgreSQL + Redis |
 | Git | 最新版 | 版本控制 |

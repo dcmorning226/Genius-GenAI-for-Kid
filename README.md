@@ -75,7 +75,7 @@ Companion 是一個為 4–6 歲兒童設計的 AI 角色陪伴式語音互動�
 
 ### 前置需求
 
-- **Python** 3.11+
+- **Python** 3.11 ~ 3.12（建議 3.12，3.13+ 尚未完整支援 asyncpg）
 - **Node.js** 18+
 - **Docker & Docker Compose**（用於 PostgreSQL + Redis）
 - 至少一組 AI API 金鑰（OpenAI 或 Anthropic）
